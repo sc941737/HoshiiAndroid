@@ -1,15 +1,22 @@
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
-        classpath("com.android.tools.build:gradle:7.1.2")
-    }
-}
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-task("clean") {
+plugins {
+    id(GradlePlugin.ANDROID_APPLICATION) version Versions.ANDROID_PLUGIN apply false
+    id(GradlePlugin.ANDROID_LIBRARY) version Versions.ANDROID_PLUGIN apply false
+    id(GradlePlugin.KOTLIN_ANDROID) version Versions.KOTLIN apply false
+    id(GradlePlugin.KOTLIN_JVM) version Versions.KOTLIN
+}
+dependencies {
+    implementation(Deps.JetBrains.Kotlin.kotlinStdlib8)
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = Versions.JAVA_VERSION_STR
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = Versions.JAVA_VERSION_STR
+}
+tasks.clean.configure {
     delete(rootProject.buildDir)
 }

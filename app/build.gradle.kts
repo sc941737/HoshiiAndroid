@@ -1,54 +1,97 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    id(GradlePlugin.ANDROID_APPLICATION)
+    id(GradlePlugin.KOTLIN_ANDROID)
+    id(GradlePlugin.KSP) version Versions.KSP
 }
 
-val compose_version = "1.1.1"
-
 android {
-    compileSdk = 32
+    namespace = "com.hoshii"
+    compileSdk = AndroidConfig.COMPILE_SDK_VERSION
+
     defaultConfig {
-        applicationId = "com.sc941737.hoshiiandroid"
-        minSdk = 23
-        targetSdk = 32
+        applicationId = "com.hoshii"
+        minSdk = AndroidConfig.MIN_SDK_VERSION
+        targetSdk = AndroidConfig.TARGET_SDK_VERSION
+        buildToolsVersion = AndroidConfig.BUILD_TOOLS_VERSION
+        // todo: This should normally be extracted to separate file for CI scripts
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+    }
+    signingConfigs {
+        // todo: This should normally be extracted to a separate file
+        val demo by creating {
+            keyAlias = "key0"
+            keyPassword = "123456"
+            storeFile = file("path/to/hoshii_keystore.jks") // Change to match local file path
+            storePassword = "123456"
+        }
     }
     buildTypes {
-        getByName("release") {
+        val debug by getting {
+            applicationIdSuffix = ".debug"
+            isMinifyEnabled = false
+        }
+        val release by getting {
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+            // To publish on the Play store a private signing key is required, but to allow anyone
+            // who clones the code to sign and run the release variant, use the debug signing key.
+            // TODO: Abstract the signing configuration to a separate file to avoid hardcoding this.
+            signingConfig = signingConfigs.getByName("demo")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Versions.JAVA_VERSION
+        targetCompatibility = Versions.JAVA_VERSION
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.JAVA_VERSION_STR
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.1"
+        kotlinCompilerExtensionVersion = Deps.AndroidX.Compose.version
+    }
+    packagingOptions {
+        resources {
+            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+        }
+    }
+    applicationVariants.all {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("build/generated/ksp/$name/kotlin")
+            }
+        }
     }
 }
 
 dependencies {
-
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.compose.ui:ui:$compose_version")
-    implementation("androidx.compose.material:material:$compose_version")
-    implementation("androidx.compose.ui:ui-tooling-preview:$compose_version")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
-    implementation("androidx.activity:activity-compose:1.4.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
-    debugImplementation("androidx.compose.ui:ui-tooling:$compose_version")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_version")
+    implementation(project(":features:task-list"))
+    implementation(project(":lib-generic:error"))
+    implementation(project(":lib-generic:network"))
+    implementation(project(":lib-generic:ui"))
+    implementation(project(":lib-specific:ui-theme"))
+    implementation(Deps.AndroidX.coreKtx)
+    implementation(Deps.AndroidX.Lifecycle.lifecycleProcess)
+    implementation(Deps.AndroidX.Lifecycle.lifecycleRuntime)
+    implementation(Deps.AndroidX.Activity.activityCompose)
+    implementation(Deps.Koin.android)
+    implementation(Deps.Koin.androidCompose)
+    implementation(Deps.Raamcosta.ComposeDestinations.core)
+    ksp(Deps.Raamcosta.ComposeDestinations.ksp)
+    testImplementation(Deps.Test.JUnit.junit4)
+    testImplementation(Deps.Test.Ext.junitKtx)
+    androidTestImplementation(Deps.Test.Espresso.espressoCore)
+    androidTestImplementation(Deps.AndroidX.Compose.Ui.uiTestJunit4)
+    debugImplementation(Deps.AndroidX.Compose.Ui.uiTestManifest)
 }
