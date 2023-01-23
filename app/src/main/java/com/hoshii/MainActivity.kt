@@ -3,7 +3,7 @@ package com.hoshii
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-//import com.hoshii.features.task_list.ui.NavGraphs
+import com.hoshii.features.task_list.ui.NavGraphs
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.hoshii.lib.ui.showToast
 import com.hoshii.lib.ui.subscribe
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HoshiiTheme {
-//                DestinationsNavHost(navGraph = NavGraphs.root)
+                DestinationsNavHost(navGraph = NavGraphs.root)
             }
         }
 //        subscribe(viewModel.taskErrorEvents) { showToast(it.message) }

@@ -20,6 +20,7 @@ object Deps {
             // Versions: https://developer.android.google.cn/jetpack/androidx/releases/compose?hl=en#versions
             // Sources: https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-compose-release/
             const val version = "1.3.1"
+            const val compilerVersion = "1.4.0"
 
             object Animation {
                 // https://developer.android.com/jetpack/androidx/releases/compose-animation
@@ -35,7 +36,7 @@ object Deps {
                 // https://androidx.dev/storage/compose-compiler/repository
                 // more about versioning of Compose Compiler:
                 // https://android-developers.googleblog.com/2022/06/independent-versioning-of-Jetpack-Compose-libraries.html
-                const val compiler = "androidx.compose.compiler:compiler:$version"
+                const val compiler = "androidx.compose.compiler:compiler:$compilerVersion"
                 // NOTE: Compose Compiler's version can be set explicitly
                 //       with android.composeOptions.kotlinCompilerExtensionVersion.
             }
