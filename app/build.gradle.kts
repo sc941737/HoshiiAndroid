@@ -34,11 +34,11 @@ android {
         }
     }
     buildTypes {
-        val debug by getting {
+        debug {
             applicationIdSuffix = ".debug"
             isMinifyEnabled = false
         }
-        val release by getting {
+        release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
@@ -59,7 +59,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Deps.AndroidX.Compose.compilerVersion
+        kotlinCompilerExtensionVersion = Deps.AndroidX.Compose.Compiler.compilerVersion
     }
     packagingOptions {
         resources {
@@ -76,22 +76,23 @@ android {
 }
 
 dependencies {
-    implementation(project(":features:task-list"))
+    implementation(project(":features:entry-list"))
     implementation(project(":lib-generic:error"))
     implementation(project(":lib-generic:network"))
     implementation(project(":lib-generic:ui"))
+    implementation(project(":lib-specific:local-db"))
     implementation(project(":lib-specific:ui-theme"))
     implementation(Deps.AndroidX.coreKtx)
     implementation(Deps.AndroidX.Lifecycle.lifecycleProcess)
-    implementation(Deps.AndroidX.Lifecycle.lifecycleRuntime)
+    implementation(Deps.AndroidX.Lifecycle.lifecycleRuntimeKtx)
     implementation(Deps.AndroidX.Activity.activityCompose)
     implementation(Deps.Koin.android)
     implementation(Deps.Koin.androidCompose)
     implementation(Deps.Raamcosta.ComposeDestinations.core)
     ksp(Deps.Raamcosta.ComposeDestinations.ksp)
     testImplementation(Deps.Test.JUnit.junit4)
-    testImplementation(Deps.Test.Ext.junitKtx)
-    androidTestImplementation(Deps.Test.Espresso.espressoCore)
+    testImplementation(Deps.Test.Android.Ext.junitKtx)
+    androidTestImplementation(Deps.Test.Android.Espresso.espressoCore)
     androidTestImplementation(Deps.AndroidX.Compose.Ui.uiTestJunit4)
     debugImplementation(Deps.AndroidX.Compose.Ui.uiTestManifest)
 }

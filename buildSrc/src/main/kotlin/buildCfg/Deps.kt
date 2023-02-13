@@ -1,15 +1,13 @@
+@file:Suppress("unused")
+
 object Deps {
 
     object AndroidX {
-        // Sources:
-        // - repo: https://android.googlesource.com/platform/frameworks/support/+/HEAD/
-        // - code search: https://cs.android.com/androidx
         // Versions: https://developer.android.com/jetpack/androidx/versions
         const val coreKtx = "androidx.core:core-ktx:1.9.0"
 
         object Activity {
-            // INFO: https://developer.android.com/jetpack/androidx/releases/activity
-            // MVN:  https://maven.google.com/web/index.html#androidx.activity
+            // Versions: https://developer.android.com/jetpack/androidx/releases/activity
             private const val version = "1.6.1"
             const val activity = "androidx.activity:activity:$version"
             const val activityKtx = "androidx.activity:activity-ktx:$version"
@@ -18,59 +16,45 @@ object Deps {
 
         object Compose {
             // Versions: https://developer.android.google.cn/jetpack/androidx/releases/compose?hl=en#versions
-            // Sources: https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-compose-release/
-            const val version = "1.3.1"
-            const val compilerVersion = "1.4.0"
+            private const val version = "1.3.1"
 
             object Animation {
-                // https://developer.android.com/jetpack/androidx/releases/compose-animation
-                // https://maven.google.com/web/index.html#androidx.compose.animation
-                const val animation = "androidx.compose.animation:animation:$version"
+                private const val animationVersion = "1.3.3"
+                const val animation = "androidx.compose.animation:animation:$animationVersion"
             }
             object Compiler {
-                // CHANGELOG: https://developer.android.com/jetpack/androidx/releases/compose-compiler
-                // MAVEN:     https://maven.google.com/web/index.html#androidx.compose.compiler
-                // Compatibility map:
-                // https://developer.android.com/jetpack/androidx/releases/compose-kotlin#pre-release_kotlin_compatibility
-                // to support newer Kotlin version use develop builds:
-                // https://androidx.dev/storage/compose-compiler/repository
-                // more about versioning of Compose Compiler:
-                // https://android-developers.googleblog.com/2022/06/independent-versioning-of-Jetpack-Compose-libraries.html
+                const val compilerVersion = "1.4.0"
                 const val compiler = "androidx.compose.compiler:compiler:$compilerVersion"
                 // NOTE: Compose Compiler's version can be set explicitly
                 //       with android.composeOptions.kotlinCompilerExtensionVersion.
             }
             object Foundation {
-                // https://developer.android.com/jetpack/androidx/releases/compose-foundation
-                // https://maven.google.com/web/index.html#androidx.compose.foundation
                 const val foundation = "androidx.compose.foundation:foundation:$version"
             }
             object Material {
-                // https://developer.android.com/jetpack/androidx/releases/compose-material
-                // https://maven.google.com/web/index.html#androidx.compose.material
                 const val material = "androidx.compose.material:material:$version"
                 const val materialIconsCore = "androidx.compose.material:material-icons-core:$version"
                 const val materialIconsExtended = "androidx.compose.material:material-icons-extended:$version"
             }
+            object Material3 {
+                private const val version = "1.0.1"
+                const val material3 = "androidx.compose.material3:material3:$version"
+            }
             object Ui {
-                // https://developer.android.com/jetpack/androidx/releases/compose-ui
-                // https://maven.google.com/web/index.html#androidx.compose.ui
-                const val ui = "androidx.compose.ui:ui:$version"
+                private const val uiVersion = "1.3.3"
+                const val ui = "androidx.compose.ui:ui:$uiVersion"
                 // Tooling support (Previews, etc.)
-                const val uiTooling = "androidx.compose.ui:ui-tooling:$version"
-                const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$version"
-                const val uiTestJunit4 = "androidx.compose.ui:ui-test-junit4:$version"
-                const val uiTestManifest = "androidx.compose.ui:ui-test-manifest:$version"
+                const val uiTooling = "androidx.compose.ui:ui-tooling:$uiVersion"
+                const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$uiVersion"
+                const val uiTestJunit4 = "androidx.compose.ui:ui-test-junit4:$uiVersion"
+                const val uiTestManifest = "androidx.compose.ui:ui-test-manifest:$uiVersion"
             }
         }
 
         object Lifecycle {
-            // INFO: https://developer.android.com/jetpack/androidx/releases/lifecycle
-            // https://maven.google.com/web/index.html#androidx.lifecycle
-            // https://mvnrepository.com/artifact/androidx.lifecycle
-            // Sources: https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-main/lifecycle/
+            // Versions: https://developer.android.com/jetpack/androidx/releases/lifecycle
             private const val version = "2.5.1"
-            const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime:$version"
+            const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
             const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:$version"
             // Process
             const val lifecycleProcess = "androidx.lifecycle:lifecycle-process:$version"
@@ -78,12 +62,29 @@ object Deps {
             const val lifecycleViewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
             const val lifecycleViewmodelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$version"
         }
-    } // End of AndroidX
+
+        object Security {
+            // Versions: https://developer.android.com/jetpack/androidx/releases/security
+            private const val version = "1.1.0-alpha04"
+            const val securityCrypto = "androidx.security:security-crypto:$version"
+            const val securityIdentityCredential = "androidx.security:security-identity-credential:$version"
+        }
+    }
+
+    object Auth0 {
+        // Versions: https://github.com/auth0/JWTDecode.Android/releases
+        const val jwtDecode = "com.auth0.android:jwtdecode:2.0.2"
+    }
+
+    object JakeWharton {
+        // Versions: https://github.com/JakeWharton/timber/releases
+        const val timber = "com.jakewharton.timber:timber:5.0.1"
+    }
 
     object JetBrains {
         object Kotlin {
-            // CHANGELOG: https://kotlinlang.org/docs/releases.html#release-details
-            //            https://github.com/JetBrains/kotlin/releases
+            // Changelog: https://kotlinlang.org/docs/releases.html#release-details
+            // Versions: https://github.com/JetBrains/kotlin/releases
             const val version = Versions.KOTLIN
             const val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib:$version"
             const val kotlinStdlib8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
@@ -93,66 +94,41 @@ object Deps {
         }
 
         object KotlinX {
-
-
             object Collections {
-                private const val version = "0.3.2"
+                // Versions: https://github.com/Kotlin/kotlinx.collections.immutable/releases
+                private const val version = "0.3.5"
                 const val kotlinxCollectionsImmutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:$version"
                 const val kotlinxCollectionsImmutableJvm =
                     "org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:$version"
             }
 
             object Coroutines {
-                // CHANGELOG: https://github.com/Kotlin/kotlinx.coroutines/blob/master/CHANGES.md
-                // MAVEN:     https://mvnrepository.com/artifact/org.jetbrains.kotlinx/
-                //            https://search.maven.org/search?q=g:org.jetbrains.kotlinx%20AND%20a:kotlinx-coroutines*
+                // Versions: https://github.com/Kotlin/kotlinx.coroutines/releases
                 private const val version = "1.6.4"
                 const val kotlinxCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
                 const val kotlinxCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
             }
 
             object Serialization {
+                // Versions: https://github.com/Kotlin/kotlinx.serialization/releases
                 const val serializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
                 const val classPath = "org.jetbrains.kotlinx:kotlinx-serialization:1.5.21"
             }
         }
-    } // End of JetBrains
-
-    object Test {
-        // INFO: https://developer.android.com/jetpack/androidx/releases/test
-        // MVN:  https://maven.google.com/web/index.html#androidx.test
-        private const val version = "1.5.1"
-        // Core library
-        const val core = "androidx.test:core:$version"
-
-        object Espresso {
-            private const val version = "3.5.0"
-            const val espressoCore = "androidx.test.espresso:espresso-core:$version"
-        }
-
-        object Ext {
-            // MVN:  https://maven.google.com/web/index.html#androidx.test.ext
-            private const val junitVersion = "1.1.4"
-            const val junitKtx = "androidx.test.ext:junit-ktx:$junitVersion"
-            private const val truthVersion = "1.5.0"
-            const val truth = "androidx.test.ext:truth:$truthVersion"
-        }
-
-        object JUnit {
-            // https://search.maven.org/artifact/junit/junit
-            const val junit4 = "junit:junit:4.13.2"
-        }
-    } // End of Test
+    }
 
     object Koin {
-        private const val version = "3.3.0"
+        // Versions: https://insert-koin.io/docs/setup/koin
+        private const val version = "3.3.2"
+        private const val composeVersion = "3.4.1"
         const val android = "io.insert-koin:koin-android:$version"
-        const val androidCompose = "io.insert-koin:koin-androidx-compose:$version"
+        const val androidCompose = "io.insert-koin:koin-androidx-compose:$composeVersion"
         const val junit4 = "io.insert-koin:koin-test-junit4:$version"
     }
 
     object Ktor {
-        private const val version = "2.1.3"
+        // Versions: https://github.com/ktorio/ktor/releases
+        private const val version = "2.2.2"
         const val ktorClientAndroid = "io.ktor:ktor-client-android:$version"
         const val ktorClientCore = "io.ktor:ktor-client-core:$version"
         const val ktorClientContentNegotiation = "io.ktor:ktor-client-content-negotiation:$version"
@@ -162,11 +138,52 @@ object Deps {
         const val ktorClientSerializationJson = "io.ktor:ktor-serialization-kotlinx-json:$version"
     }
 
+    object OpenId {
+        // Versions: https://search.maven.org/search?q=g:net.openid%20appauth
+        const val appAuth = "net.openid:appauth:0.11.1"
+    }
+
     object Raamcosta {
         object ComposeDestinations {
-            const val version = "1.7.27-beta"
+            // Versions: https://github.com/raamcosta/compose-destinations/releases
+            const val version = "1.7.33-beta" // Depends on Compose version
             const val core = "io.github.raamcosta.compose-destinations:core:$version"
             const val ksp = "io.github.raamcosta.compose-destinations:ksp:$version"
         }
     }
-} // End of Deps
+
+    object SQLDelight {
+        // Versions: https://github.com/cashapp/sqldelight/releases
+        const val version = "2.0.0-alpha05"
+        const val driver = "app.cash.sqldelight:android-driver:$version"
+        const val primitiveAdapters = "app.cash.sqldelight:primitive-adapters:$version"
+        const val coroutinesExt = "app.cash.sqldelight:coroutines-extensions:$version"
+    }
+
+    object Test {
+        object Android {
+            // Versions: https://developer.android.com/jetpack/androidx/releases/test
+            private const val version = "1.5.0"
+
+            // Core library
+            const val core = "androidx.test:core:$version"
+
+            object Espresso {
+                private const val espressoVersion = "3.5.1"
+                const val espressoCore = "androidx.test.espresso:espresso-core:$espressoVersion"
+            }
+
+            object Ext {
+                private const val junitVersion = "1.1.5"
+                const val junitKtx = "androidx.test.ext:junit-ktx:$junitVersion"
+                private const val truthVersion = "1.5.0"
+                const val truth = "androidx.test.ext:truth:$truthVersion"
+            }
+        }
+
+        object JUnit {
+            // Versions: https://github.com/junit-team/junit4/releases
+            const val junit4 = "junit:junit:4.13.2"
+        }
+    }
+}

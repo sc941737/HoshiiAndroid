@@ -4,13 +4,9 @@ plugins {
 }
 
 android {
-    namespace = "com.hoshii.lib.error"
-    defaultConfig {
-        minSdk = AndroidConfig.MIN_SDK_VERSION
-        compileSdk = AndroidConfig.COMPILE_SDK_VERSION
-    }
+    configureAndroidLib("error")
 }
 
 dependencies {
-    implementation(Deps.Koin.android)
+
 }

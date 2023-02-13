@@ -5,11 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hoshii.lib.network"
-    defaultConfig {
-        minSdk = AndroidConfig.MIN_SDK_VERSION
-        compileSdk = AndroidConfig.COMPILE_SDK_VERSION
-    }
+    configureAndroidLib("network")
 }
 
 dependencies {
@@ -20,5 +16,4 @@ dependencies {
     api(Deps.Ktor.ktorClientSerializationJson)
     api(Deps.JetBrains.KotlinX.Serialization.serializationJson) // Serializable
     implementation(Deps.Ktor.ktorClientLogging)
-    implementation(Deps.Koin.android)
 }

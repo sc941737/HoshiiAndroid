@@ -6,18 +6,8 @@ plugins {
 }
 
 android {
-    namespace = "com.hoshii.lib.ui_theme"
-
-    defaultConfig {
-        minSdk = AndroidConfig.MIN_SDK_VERSION
-        compileSdk = AndroidConfig.COMPILE_SDK_VERSION
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Deps.AndroidX.Compose.compilerVersion
-    }
+    configureAndroidLib("ui_theme")
+    configureCompose()
 }
 
 dependencies {

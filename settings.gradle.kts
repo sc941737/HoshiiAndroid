@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":lib-specific:local-db")
+
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -17,7 +20,7 @@ dependencyResolutionManagement {
 rootProject.name = "HoshiiAndroid"
 include(
     ":app",
-    ":features:task-list",
+    ":features:entry-list",
     ":lib-generic:error",
     ":lib-generic:network",
     ":lib-generic:ui",
