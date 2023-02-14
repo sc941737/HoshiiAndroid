@@ -23,7 +23,7 @@ object Deps {
                 const val animation = "androidx.compose.animation:animation:$animationVersion"
             }
             object Compiler {
-                const val compilerVersion = "1.4.0"
+                const val compilerVersion = "1.4.2"
                 const val compiler = "androidx.compose.compiler:compiler:$compilerVersion"
                 // NOTE: Compose Compiler's version can be set explicitly
                 //       with android.composeOptions.kotlinCompilerExtensionVersion.
@@ -119,8 +119,8 @@ object Deps {
 
     object Koin {
         // Versions: https://insert-koin.io/docs/setup/koin
-        private const val version = "3.3.2"
-        private const val composeVersion = "3.4.1"
+        private const val version = "3.3.3"
+        private const val composeVersion = "3.4.2"
         const val android = "io.insert-koin:koin-android:$version"
         const val androidCompose = "io.insert-koin:koin-androidx-compose:$composeVersion"
         const val junit4 = "io.insert-koin:koin-test-junit4:$version"
