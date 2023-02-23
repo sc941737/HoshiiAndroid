@@ -7,7 +7,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-class ParentListAdapter : ColumnAdapter<List<Parent>, String> {
+internal class ParentListAdapter : ColumnAdapter<List<Parent>, String> {
     override fun decode(databaseValue: String): List<Parent> =
         Json.decodeFromString<ParentListWrapper>(databaseValue).parents
 
@@ -16,6 +16,6 @@ class ParentListAdapter : ColumnAdapter<List<Parent>, String> {
 }
 
 @Serializable
-data class ParentListWrapper(
+internal data class ParentListWrapper(
     val parents: List<Parent>
 )

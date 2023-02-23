@@ -2,8 +2,8 @@ package com.hoshii.lib.local_db.models
 
 data class Folder(
     /** Entry fields **/
-    override val id: Long,
-    override val type: EntryType,
+    override val id: Long = -1,
+    override val type: EntryType = EntryType.FOLDER,
     override val title: String?,
     override val description: String?,
     override val calculateProgressFromChildren: Boolean,

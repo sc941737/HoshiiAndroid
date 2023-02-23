@@ -8,7 +8,7 @@ import com.hoshii.lib.localdb.RecurringEntity
 import com.hoshii.lib.localdb.SkillEntity
 import com.hoshii.lib.localdb.TaskEntity
 
-val entryEntityAdapter = EntryEntity.Adapter(
+internal val entryEntityAdapter = EntryEntity.Adapter(
     typeAdapter = EnumColumnAdapter(),
     progressAdapter = IntColumnAdapter,
     priorityAdapter = IntColumnAdapter,
@@ -16,14 +16,14 @@ val entryEntityAdapter = EntryEntity.Adapter(
     parentsAdapter = ParentListAdapter(),
 )
 
-val recurringEntityAdapter = RecurringEntity.Adapter(
+internal val recurringEntityAdapter = RecurringEntity.Adapter(
     recurrenceTypeAdapter = EnumColumnAdapter(),
     weekDaysAdapter = WeekDayListAdapter(),
     daysOfMonthAdapter = IntListAdapter(),
     daysIntervalAdapter = IntColumnAdapter,
 )
 
-val taskEntityAdapter = TaskEntity.Adapter(
+internal val taskEntityAdapter = TaskEntity.Adapter(
     monetaryCostAdapter = FloatColumnAdapter,
     physicalEnergyCostAdapter = EnumColumnAdapter(),
     mentalEnergyCostAdapter = EnumColumnAdapter(),
@@ -31,6 +31,6 @@ val taskEntityAdapter = TaskEntity.Adapter(
     timeOfStartAdapter = IntColumnAdapter,
 )
 
-val skillEntityAdapter = SkillEntity.Adapter(
+internal val skillEntityAdapter = SkillEntity.Adapter(
     levelAdapter = IntColumnAdapter,
 )

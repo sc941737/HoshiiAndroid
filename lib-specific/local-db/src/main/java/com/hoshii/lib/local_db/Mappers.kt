@@ -12,8 +12,8 @@ import com.hoshii.lib.localdb.GetAllSkills
 import com.hoshii.lib.localdb.GetAllTasks
 
 @JvmName("toDataModelGetAllRecurringTasks")
-fun List<GetAllRecurringTasks>.toDataModel() = map { it.toDataModel() }
-fun GetAllRecurringTasks.toDataModel() = RecurringTask(
+internal fun List<GetAllRecurringTasks>.toDataModel() = map { it.toDataModel() }
+internal fun GetAllRecurringTasks.toDataModel() = RecurringTask(
     id = id,
     type = type,
     title = title,
@@ -39,8 +39,8 @@ fun GetAllRecurringTasks.toDataModel() = RecurringTask(
 )
 
 @JvmName("toDataModelGetAllTasks")
-fun List<GetAllTasks>.toDataModel() = map { it.toDataModel() }
-fun GetAllTasks.toDataModel() = SimpleTask(
+internal fun List<GetAllTasks>.toDataModel() = map { it.toDataModel() }
+internal fun GetAllTasks.toDataModel() = SimpleTask(
     id = id,
     type = type,
     title = title,
@@ -61,8 +61,8 @@ fun GetAllTasks.toDataModel() = SimpleTask(
 )
 
 @JvmName("toDataModelGetAllSkills")
-fun List<GetAllSkills>.toDataModel() = map { it.toDataModel() }
-fun GetAllSkills.toDataModel() = Skill(
+internal fun List<GetAllSkills>.toDataModel() = map { it.toDataModel() }
+internal fun GetAllSkills.toDataModel() = Skill(
     id = id,
     type = type,
     title = title,
@@ -80,8 +80,8 @@ fun GetAllSkills.toDataModel() = Skill(
 )
 
 @JvmName("toDataModelGetAllGoals")
-fun List<GetAllGoals>.toDataModel() = map { it.toDataModel() }
-fun GetAllGoals.toDataModel() = SimpleGoal(
+internal fun List<GetAllGoals>.toDataModel() = map { it.toDataModel() }
+internal fun GetAllGoals.toDataModel() = SimpleGoal(
     id = id,
     type = type,
     title = title,
@@ -98,8 +98,8 @@ fun GetAllGoals.toDataModel() = SimpleGoal(
 )
 
 @JvmName("toDataModelEntryEntity")
-fun List<EntryEntity>.toDataModel() = map { it.toDataModel() }
-fun EntryEntity.toDataModel() = Folder(
+internal fun List<EntryEntity>.toDataModel() = map { it.toDataModel() }
+internal fun EntryEntity.toDataModel() = Folder(
     id = id,
     type = type,
     title = title,
