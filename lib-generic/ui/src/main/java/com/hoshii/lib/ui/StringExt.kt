@@ -11,4 +11,4 @@ inline fun String.ifNotEmpty(block: (String) -> Unit) {
     if (isNotEmpty()) block(this)
 }
 
-fun List<String>.filterNotEmpty() = filter { it != "" }
+fun List<String>.filterNotEmpty() = filter { it.isNotEmpty() }

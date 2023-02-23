@@ -1,0 +1,55 @@
+import com.hoshii.lib.local_db.models.Energy;
+import kotlin.Float;
+import kotlin.Int;
+
+CREATE TABLE TaskEntity (
+  id INTEGER NOT NULL,
+  timeOfStart INTEGER AS Int,
+  timeOfFinish INTEGER AS Int,
+  dateTodo INTEGER NOT NULL,
+  monetaryCost REAL AS Float NOT NULL,
+  physicalEnergyCost TEXT AS Energy NOT NULL,
+  mentalEnergyCost TEXT AS Energy NOT NULL,
+  FOREIGN KEY (id) REFERENCES EntryEntity(id) ON DELETE CASCADE
+);
+
+addTask:
+INSERT OR IGNORE INTO TaskEntity (
+id,
+timeOfStart,
+timeOfFinish,
+dateTodo,
+monetaryCost,
+physicalEnergyCost,
+mentalEnergyCost
+)
+VALUES (last_insert_rowid(), ?, ?, ?, ?, ?, ?)
+;
+
+updateTaskById:
+UPDATE TaskEntity
+SET
+timeOfStart = :timeOfStart,
+timeOfFinish = :timeOfFinish,
+dateTodo = :dateTodo,
+monetaryCost = :monetaryCost,
+physicalEnergyCost = :physicalEnergyCost,
+mentalEnergyCost = :mentalEnergyCost
+WHERE id = :id
+;
+
+getAllTasks:
+SELECT *
+FROM EntryEntity entry
+JOIN TaskEntity task
+ON task.id = entry.id
+WHERE entry.type = 'TASK'
+;
+
+getTaskById:
+SELECT *
+FROM TaskEntity task
+JOIN EntryEntity entry
+ON task.id = entry.id
+WHERE task.id = :id
+;

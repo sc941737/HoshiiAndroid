@@ -1,0 +1,76 @@
+import com.hoshii.lib.local_db.models.EntryType;
+import com.hoshii.lib.local_db.models.Parent;
+import kotlin.Boolean;
+import kotlin.Int;
+import kotlin.collections.List;
+
+CREATE TABLE EntryEntity (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  type TEXT AS EntryType NOT NULL,
+  title TEXT,
+  description TEXT,
+  calculateProgressFromChildren INTEGER AS Boolean DEFAULT 0 NOT NULL,
+  progress INTEGER AS Int DEFAULT 0 NOT NULL,
+  priority INTEGER AS Int DEFAULT 0 NOT NULL,
+  childrenIds TEXT AS List<Long>,
+  parents TEXT AS List<Parent>,
+  dateCreated INTEGER NOT NULL,
+  dateFinished INTEGER
+);
+
+lastInsertRowId:
+SELECT last_insert_rowid()
+;
+
+-- Entry queries:
+
+addEntry:
+INSERT OR IGNORE INTO EntryEntity (
+type,
+title,
+description,
+calculateProgressFromChildren,
+progress,
+priority,
+childrenIds,
+parents,
+dateCreated,
+dateFinished
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+;
+
+updateEntryById:
+UPDATE EntryEntity
+SET
+type = :type,
+title = :title,
+description = :description,
+calculateProgressFromChildren = :calculateProgressFromChildren,
+progress = :progress,
+priority = :priority,
+childrenIds = :childrenIds,
+parents = :parents,
+dateCreated = :dateCreated,
+dateFinished = :dateFinished
+WHERE id = :id
+;
+
+removeEntryById:
+DELETE FROM EntryEntity
+WHERE id = :id
+;
+
+-- Folder queries:
+
+getAllFolders:
+SELECT *
+FROM EntryEntity
+WHERE type = 'FOLDER'
+;
+
+getFolderById:
+SELECT *
+FROM EntryEntity
+WHERE type = 'FOLDER' AND id = :id
+;

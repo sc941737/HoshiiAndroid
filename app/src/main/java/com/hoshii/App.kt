@@ -6,6 +6,7 @@ import com.hoshii.lib.network.networkModule
 import com.hoshii.lib.ui.di.uiModule
 import com.hoshii.di.appModule
 import com.hoshii.features.entry_list.di.entryListModule
+import com.hoshii.lib.local_db.di.localDbModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -19,6 +20,7 @@ class App : Application() {
                 appModule,
                 errorModule,
                 networkModule,
+                localDbModule,
                 entryListModule,
             )
         }

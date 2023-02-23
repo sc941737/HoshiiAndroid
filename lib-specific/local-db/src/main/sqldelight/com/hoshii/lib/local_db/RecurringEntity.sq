@@ -1,0 +1,62 @@
+import com.hoshii.lib.local_db.models.RecurrenceType;
+import com.hoshii.lib.local_db.models.WeekDay;
+import kotlin.Boolean;
+import kotlin.Int;
+import kotlin.collections.List;
+
+CREATE TABLE RecurringEntity (
+  id INTEGER NOT NULL,
+  recurrenceType TEXT AS RecurrenceType NOT NULL,
+  daysInterval INTEGER AS Int NOT NULL,
+  weekDays TEXT AS List<WeekDay> NOT NULL,
+  daysOfMonth TEXT AS List<Int> NOT NULL,
+  manualProgress INTEGER AS Boolean NOT NULL,
+  FOREIGN KEY (id) REFERENCES EntryEntity(id) ON DELETE CASCADE
+);
+
+-- Recurring queries:
+
+addRecurring:
+INSERT OR IGNORE INTO RecurringEntity (
+id,
+recurrenceType,
+daysInterval,
+weekDays,
+daysOfMonth,
+manualProgress
+)
+VALUES (last_insert_rowid(), ?, ?, ?, ?, ?)
+;
+
+updateRecurringById:
+UPDATE RecurringEntity
+SET
+recurrenceType = :recurrenceType,
+daysInterval = :daysInterval,
+weekDays = :weekDays,
+daysOfMonth = :daysOfMonth,
+manualProgress = :manualProgress
+WHERE id = :id
+;
+
+-- Recurring task queries:
+
+getAllRecurringTasks:
+SELECT *
+FROM EntryEntity entry
+JOIN TaskEntity task
+ON task.id = entry.id
+JOIN RecurringEntity recurring
+ON recurring.id = entry.id
+WHERE entry.type = 'RECURRING_TASK'
+;
+
+getRecurringTaskById:
+SELECT *
+FROM TaskEntity task
+JOIN EntryEntity entry
+ON task.id = entry.id
+JOIN RecurringEntity recurring
+ON recurring.id = entry.id
+WHERE task.id = :id
+;

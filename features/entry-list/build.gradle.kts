@@ -16,6 +16,7 @@ ksp {
 }
 
 dependencies {
+    implementation(project(Modules.Lib.Specific.localDb))
     api(Deps.AndroidX.Activity.activityKtx)
     api(Deps.JetBrains.KotlinX.Coroutines.kotlinxCoroutinesCore)
     implementation(Deps.AndroidX.Lifecycle.lifecycleProcess)

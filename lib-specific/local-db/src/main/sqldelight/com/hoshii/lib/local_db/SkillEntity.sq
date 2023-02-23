@@ -1,0 +1,42 @@
+import kotlin.Int;
+
+CREATE TABLE SkillEntity(
+  id INTEGER NOT NULL,
+  level INTEGER AS Int NOT NULL,
+  FOREIGN KEY (id) REFERENCES EntryEntity(id) ON DELETE CASCADE
+);
+
+addSkill:
+INSERT OR IGNORE INTO SkillEntity (
+id,
+level
+)
+VALUES (last_insert_rowid(), ?)
+;
+
+updateSkillById:
+UPDATE SkillEntity
+SET
+level = :level
+WHERE id = :id
+;
+
+getAllSkills:
+SELECT *
+FROM EntryEntity entry
+JOIN GoalEntity goal
+ON goal.id = entry.id
+JOIN SkillEntity skill
+ON skill.id = entry.id
+WHERE entry.type = 'SKILL'
+;
+
+getSkillById:
+SELECT *
+FROM GoalEntity goal
+JOIN EntryEntity entry
+ON goal.id = entry.id
+JOIN SkillEntity skill
+ON skill.id = entry.id
+WHERE goal.id = :id
+;

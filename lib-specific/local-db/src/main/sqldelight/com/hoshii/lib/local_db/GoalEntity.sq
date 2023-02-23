@@ -1,0 +1,40 @@
+
+CREATE TABLE GoalEntity (
+  id INTEGER NOT NULL,
+  dateOfStart INTEGER,
+  dateOfFinish INTEGER,
+  FOREIGN KEY (id) REFERENCES EntryEntity(id) ON DELETE CASCADE
+);
+
+addGoal:
+INSERT OR IGNORE INTO GoalEntity (
+id,
+dateOfStart,
+dateOfFinish
+)
+VALUES (last_insert_rowid(), ?, ?)
+;
+
+updateGoalById:
+UPDATE GoalEntity
+SET
+dateOfStart = :dateOfStart,
+dateOfFinish = :dateOfFinish
+WHERE id = :id
+;
+
+getAllGoals:
+SELECT *
+FROM EntryEntity entry
+JOIN GoalEntity goal
+ON goal.id = entry.id
+WHERE entry.type = 'GOAL'
+;
+
+getGoalById:
+SELECT *
+FROM GoalEntity goal
+JOIN EntryEntity entry
+ON goal.id = entry.id
+WHERE goal.id = :id
+;
